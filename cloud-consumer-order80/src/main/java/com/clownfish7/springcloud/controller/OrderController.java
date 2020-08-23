@@ -4,6 +4,7 @@ import com.clownfish7.springcloud.entity.CommonResult;
 import com.clownfish7.springcloud.entity.Payment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,8 @@ public class OrderController {
 
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private DiscoveryClient discoveryClient;
 
     @GetMapping("/payment/get/{id}")
     public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id) {
@@ -33,6 +36,12 @@ public class OrderController {
     @GetMapping("/payment/create")
     public CommonResult<Payment> create(Payment payment) {
         return restTemplate.postForObject(PAYMENT_URL + "/payment/create", payment, CommonResult.class);
+    }
+
+    @GetMapping("/discoveryClient")
+    public Object discoveryClient() {
+        discoveryClient.getInstances("cloud-payment-service").forEach(System.out::println);
+        return this.discoveryClient;
     }
 
 }
