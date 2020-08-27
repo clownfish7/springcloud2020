@@ -33,3 +33,7 @@ ps：以前也没有写 README.md 的习惯，好记性不如烂笔头！
 + cloud-consumerzk-order80 zookeeper服务消费模块
 + cloud-consumerconsul-order80 consul服务消费模块
 + cloud-consumerconsul-payment8006 consul服务消费模块
++ cloud-consumer-feign-order80 feign服务消费模块
++ cloud-consumer-feign-hystrix-order80 feign-hystrix服务消费模块
++ cloud-provider-hystrix-payment8008 hystrix服务提供模块
++ cloud-consumer-hystrix-dashboard9001 hystrix监控面板模块

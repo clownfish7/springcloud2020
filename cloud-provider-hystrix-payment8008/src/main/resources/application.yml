@@ -1,0 +1,73 @@
+server:
+  port: 8008
+
+spring:
+  application:
+    name: cloud-provider-payment #服务名称
+
+eureka:
+  instance:
+    hostname: localhost
+    #所在主机ip
+    ip-address: 127.0.0.1
+    #将自己的ip地址注册到Eureka服务中
+    prefer-ip-address: true
+    #指定实例id
+    instance-id: ${spring.application.name}:${server.port}
+    #eureka客户端向服务端发送心跳时间间隔，默认30s
+    lease-renewal-interval-in-seconds: 30
+    #eureka服务端在收到最后一次心跳后的等待时间，超时将删除服务，90s
+    lease-expiration-duration-in-seconds: 90
+  client:
+    # 表示是否注册进eureka,默认为true
+    register-with-eureka: true
+    # 表示是否从EurekaServer抓取已有注册信息，默认为true，单节点无所谓，集群必须设置为true才能配合ribbon使用负载均衡
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:7001/eureka,http://127.0.0.1:7002/eureka
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          #线程池隔离还是信号量隔离 默认是THREAD 信号量是SEMAPHORE
+          strategy: THREAD
+          thread:
+            #command的执行的超时时间 默认是1000
+            timeoutInMilliseconds: 2000
+            #HystrixCommand.run()执行超时时是否被打断 默认true
+            interruptOnTimeout: true
+            #HystrixCommand.run()被取消时是否被打断 默认false
+            interruptOnCancel: false
+        timeout:
+          #command执行时间超时是否抛异常 默认是true
+          enabled: true
+        fallback:
+          #当执行失败或者请求被拒绝，是否会尝试调用hystrixCommand.getFallback()
+          enabled: true
+          isolation:
+            semaphore:
+              #如果并发数达到该设置值，请求会被拒绝和抛出异常并且fallback不会被调用 默认10
+              maxConcurrentRequests: 100
+      circuitBreaker:
+        #用来跟踪熔断器的健康性，如果未达标则让request短路 默认true
+        enabled: true
+        #一个rolling window内最小的请求数。如果设为20，那么当一个rolling window的时间内
+        #（比如说1个rolling window是10秒）收到19个请求，即使19个请求都失败，也不会触发circuit break。默认20
+        requestVolumeThreshold: 4
+        # 触发短路的时间值，当该值设为5000时，则当触发circuit break后的5000毫秒内
+        #都会拒绝request，也就是5000毫秒后才会关闭circuit，放部分请求过去。默认5000
+        sleepWindowInMilliseconds: 10000
+        #错误比率阀值，如果错误率>=该值，circuit会被打开，并短路所有请求触发fallback。默认50
+        errorThresholdPercentage: 50
+        #强制打开熔断器，如果打开这个开关，那么拒绝所有request，默认false
+        forceOpen: false
+        #强制关闭熔断器 如果这个开关打开，circuit将一直关闭且忽略
+        forceClosed: false
+  threadpool:
+    default:
+      coreSize: 10
+      maximumSize: 10
+      maxQueueSize: -1
+      queueSizeRejectionThreshold: 5
