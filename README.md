@@ -37,3 +37,7 @@ ps：以前也没有写 README.md 的习惯，好记性不如烂笔头！
 + cloud-consumer-feign-hystrix-order80 feign-hystrix服务消费模块
 + cloud-provider-hystrix-payment8008 hystrix服务提供模块
 + cloud-consumer-hystrix-dashboard9001 hystrix监控面板模块
++ cloud-gateway-gateway9527 gateway网关模块
++ cloud-config-center3344 config服务端模块
++ cloud-config-client3355 config客户端模块
++ cloud-config-client3366 config客户端模块
