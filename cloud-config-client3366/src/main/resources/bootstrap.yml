@@ -19,6 +19,20 @@ spring:
         enabled: true
         # config-server name
         service-id: cloud-config-center
+    # bus 默认配置
+    bus:
+      enabled: true
+      destination: springCloudBus
+      ack:
+        enabled: true
+      refresh:
+        enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
 
 
 eureka:

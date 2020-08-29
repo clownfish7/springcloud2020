@@ -14,6 +14,20 @@ spring:
           search-paths: springcloud-config
       #读取分支
       label: master
+    # bus 默认配置
+    bus:
+      enabled: true
+      destination: springCloudBus
+      ack:
+        enabled: true
+      refresh:
+        enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
 
 
 eureka:
@@ -36,3 +50,10 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://127.0.0.1:7001/eureka,http://127.0.0.1:7002/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        #为什么配置 bus-refresh，看工作原理图
+        include: 'bus-refresh'
