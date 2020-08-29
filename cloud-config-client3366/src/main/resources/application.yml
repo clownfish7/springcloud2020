@@ -1,0 +1,52 @@
+server:
+  port: 3366
+
+spring:
+  application:
+    name: cloud-config-client
+  cloud:
+    #config客户端配置
+    config:
+      #分支名称
+      label: master
+      #配置文件名称
+      name: config
+      # 读取后缀名称 3个综合：master分支上config-dev.yml 的配置文件被读取(http://config-3344.com:3344/master/config-dev.yml)
+      profile: dev
+      uri: http://cloud-config-center   #配置中心地址 http://host:port
+      discovery:
+        # 开启从注册中心发现 config-server
+        enabled: true
+        # config-server name
+        service-id: cloud-config-center
+eureka:
+  instance:
+    hostname: localhost
+    #所在主机ip
+    ip-address: 127.0.0.1
+    #将自己的ip地址注册到Eureka服务中
+    prefer-ip-address: true
+    #指定实例id
+    instance-id: ${spring.application.name}:${server.port}
+    #eureka客户端向服务端发送心跳时间间隔，默认30s
+    lease-renewal-interval-in-seconds: 30
+    #eureka服务端在收到最后一次心跳后的等待时间，超时将删除服务，90s
+    lease-expiration-duration-in-seconds: 90
+  client:
+    # 表示是否注册进eureka,默认为true
+    register-with-eureka: true
+    # 表示是否从EurekaServer抓取已有注册信息，默认为true，单节点无所谓，集群必须设置为true才能配合ribbon使用负载均衡
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:7001/eureka,http://127.0.0.1:7002/eureka
+
+#暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        # 此处有很多选项可以配置，直接配置 * 代表包含全部
+        include: "*"
+
+config:
+  info: "config-info application.yml"
