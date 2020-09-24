@@ -44,3 +44,7 @@ ps：以前也没有写 README.md 的习惯，好记性不如烂笔头！
 + cloud-stream-rabbitmq-provider8801 streama消息提供者模块
 + cloud-stream-rabbitmq-consumer8802 streama消息消费者模块
 + cloud-stream-rabbitmq-consumer8803 streama消息消费者模块
++ cloud-alibaba-provider-payment9001 nacos服务提供模块
++ cloud-alibaba-provider-payment9002 nacos服务提供模块
++ cloud-alibaba-consumer-nacos-order83 nacos服务消费模块
++ cloud-alibaba-config-nacos-client3377 nacos配置模块
