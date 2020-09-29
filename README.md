@@ -48,3 +48,5 @@ ps：以前也没有写 README.md 的习惯，好记性不如烂笔头！
 + cloud-alibaba-provider-payment9002 nacos服务提供模块
 + cloud-alibaba-consumer-nacos-order83 nacos服务消费模块
 + cloud-alibaba-config-nacos-client3377 nacos配置模块
++ cloud-alibaba-seata-order seata分布式事务order模块
++ cloud-alibaba-seata-storage seata分布式事务storage模块

@@ -1,0 +1,48 @@
+server:
+  port: 9092
+spring:
+  application:
+    name: cloud-seata-storage
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        group: SEATA_GROUP
+    alibaba:
+      seata:
+        tx-service-group: my_test_tx_group
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://47.97.8.7:3306/seata_storage?allowMultiQueries=true
+      username: dev
+      password: productdev123
+
+logging:
+  level:
+    io.seata: debug
+
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: my_test_tx_group
+  enable-auto-data-source-proxy: true
+  config:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8848
+      group: SEATA_GROUP
+  registry:
+    type: nacos
+    nacos:
+      # 此处名称需和 seata server 服务端 application一致,否则会报 no available service 'null' found, please make sure registry config correct 异常
+      application: seata-server
+      server-addr: 127.0.0.1:8848
+      group: SEATA_GROUP
+  service:
+    # 此处key需要与tx-service-group的value一致，否则会报 no available service 'null' found, please make sure registry config correct 异常
+    vgroup-mapping:
+      my_test_tx_group: default
+    enable-degrade: false
+    disable-global-transaction: false
