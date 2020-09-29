@@ -15,9 +15,9 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://47.97.8.7:3306/seata_storage?allowMultiQueries=true
-      username: dev
-      password: productdev123
+      url: jdbc:mysql://127.0.0.1:3306/seata_storage?allowMultiQueries=true
+      username: username
+      password: password
 
 logging:
   level:
