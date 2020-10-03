@@ -50,3 +50,7 @@ ps：以前也没有写 README.md 的习惯，好记性不如烂笔头！
 + cloud-alibaba-config-nacos-client3377 nacos配置模块
 + cloud-alibaba-seata-order seata分布式事务order模块
 + cloud-alibaba-seata-storage seata分布式事务storage模块
++ cloud-alibaba-sentinel-service8401 sentinel service模块
++ cloud-alibaba-provider-payment9003 ribbon openFeign provider模块
++ cloud-alibaba-provider-payment9004 ribbon openFeign provider模块
++ cloud-alibaba-consumer-nacos-order84 ribbon openFeign consumer模块 + sentinel 规则持久化
